@@ -49,7 +49,8 @@ namespace DatingApp.API.Data
         }
 
         private void CreatePasswordHash(string passowrd, out byte[] passwordHash, out byte[] passwordSalt)
-        {   // if you have out parament you must change the values 
+        {   
+            // if you have out, the values changes -passing it as reference type
             using(var hmac = new System.Security.Cryptography.HMACSHA512())
             {
               passwordSalt = hmac.Key;
