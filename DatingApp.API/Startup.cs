@@ -33,6 +33,7 @@ namespace DatingApp.API
             services.AddCors();
 
             // dependancy injection  
+            services.AddTransient<Seed>();
             services.AddScoped<IAuthRepository, AuthRepository>();
 
             //Add token authantication
@@ -50,7 +51,7 @@ namespace DatingApp.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, Seed seeder)
         {
             if (env.IsDevelopment())
             {
@@ -74,7 +75,7 @@ namespace DatingApp.API
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                // app.UseHsts();
             }
-
+            // seeder.SeedUser();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
            // app.UseHttpsRedirection();
             app.UseAuthentication();
