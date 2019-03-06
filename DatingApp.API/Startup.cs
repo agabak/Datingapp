@@ -28,13 +28,18 @@ namespace DatingApp.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                 .AddJsonOptions(opt => {
+                     opt.SerializerSettings.ReferenceLoopHandling =
+                     Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                 });
             // Add Cors to unable http call on the client
             services.AddCors();
 
             // dependancy injection  
             services.AddTransient<Seed>();
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IDatingRepository,DatingRepository>();
 
             //Add token authantication
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
