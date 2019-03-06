@@ -12,6 +12,7 @@ using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using DatingApp.API.Helpers;
+using AutoMapper;
 
 namespace DatingApp.API
 {
@@ -35,6 +36,7 @@ namespace DatingApp.API
                  });
             // Add Cors to unable http call on the client
             services.AddCors();
+            services.AddAutoMapper();
 
             // dependancy injection  
             services.AddTransient<Seed>();
@@ -80,7 +82,7 @@ namespace DatingApp.API
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                // app.UseHsts();
             }
-            // seeder.SeedUser();
+            //seeder.SeedUser();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
            // app.UseHttpsRedirection();
             app.UseAuthentication();
